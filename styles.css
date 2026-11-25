@@ -9,6 +9,29 @@ body {
     padding: 16px;
 }
 
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.control {
+    background-color: black;
+    color: white;
+    font-family: inherit;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 8px;
+    min-width: 75px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.control:hover {
+    background-color: #313638;
+}
+
 .sequencer {
     display: grid;
     grid-template-columns: 75px repeat(16, 1fr);
@@ -41,4 +64,8 @@ button:hover {
 
 .active:hover {
     background-color: rgb(65, 158, 250);
+}
+
+.step.playing {
+    outline: 4px solid yellow;
 }
