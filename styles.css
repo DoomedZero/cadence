@@ -27,14 +27,18 @@ button {
 }
 
 button:hover {
-    background-color: darkgray;
-}
-
-button:active {
     background-color: lightgray;
 }
 
 .step {
     aspect-ratio: 1;
     border-radius: 4px;
+}
+
+.active{
+    background-color: dodgerblue;
+}
+
+.active:hover {
+    background-color: rgb(65, 158, 250);
 }
