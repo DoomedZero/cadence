@@ -4,7 +4,6 @@ const playButton = document.querySelector("#play");
 const tracks = ["Kick", "Snare", "Hi-hat"];
 const steps = 16;
 
-// Sequencer state
 const sequencerState = tracks.map(() =>
     Array(steps).fill(false)
 );
@@ -17,7 +16,6 @@ let playbackInterval = null;
 const audioContext = new AudioContext();
 const samples = {};
 
-// Load audio samples
 async function loadSample(name, url) {
     const response = await fetch(url);
 
@@ -31,14 +29,12 @@ async function loadSample(name, url) {
         await audioContext.decodeAudioData(arrayBuffer);
 }
 
-// Load all samples
 const samplesReady = Promise.all([
     loadSample("kick", "./assets/kick.wav"),
     loadSample("snare", "./assets/snare.wav"),
     loadSample("hi-hat", "./assets/hihat.wav")
 ]);
 
-// Play an audio sample
 function playSample(name) {
     if (!samples[name]) return;
 
@@ -50,7 +46,6 @@ function playSample(name) {
     source.start();
 }
 
-// Generate sequencer grid
 tracks.forEach((track, trackIndex) => {
 
     const trackName = document.createElement("div");
@@ -83,7 +78,6 @@ tracks.forEach((track, trackIndex) => {
 
 });
 
-// Update playback highlight
 function updatePlayhead() {
 
     const buttons = document.querySelectorAll(".step");
@@ -101,7 +95,6 @@ function updatePlayhead() {
 
 }
 
-// Play / Pause
 async function playSequencer() {
 
     if (isPlaying) {
@@ -126,9 +119,6 @@ async function playSequencer() {
         // Check whether playback was paused
         // while samples were loading.
         if (!isPlaying) return;
-
-        // Start from the first step
-        currentStep = 0;
 
         playbackInterval = setInterval(() => {
 
