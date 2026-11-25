@@ -8,3 +8,33 @@ body {
     font-family: "Inter", sans-serif;
     padding: 16px;
 }
+
+.sequencer {
+    display: grid;
+    grid-template-columns: 75px repeat(16, 1fr);
+    gap: 5px;
+    max-width: 1200px;
+    margin: 50px auto; 
+}
+
+.track-name {
+    display: grid;
+    place-items: center;
+}
+
+button {
+    border: none;
+}
+
+button:hover {
+    background-color: darkgray;
+}
+
+button:active {
+    background-color: lightgray;
+}
+
+.step {
+    aspect-ratio: 1;
+    border-radius: 4px;
+}
