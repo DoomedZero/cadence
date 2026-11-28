@@ -81,3 +81,7 @@ button:hover {
 .active:hover {
     background-color: rgb(65, 158, 250);
 }
+
+.step.playing {
+    filter: brightness(0.9);
+}

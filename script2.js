@@ -62,6 +62,10 @@ bpmInput.addEventListener("change", (e) => {
 
 function playMusic() {
 
+    document.querySelectorAll(`.step[data-step="${currentStep}"]`).forEach(btn => {
+        btn.classList.toggle('playing');
+    });
+
     for (let trackIndex = 0; trackIndex < tracks.length; trackIndex++) {
         if (sequencerState[trackIndex][currentStep]) {
             playSample(trackIndex);
@@ -75,23 +79,6 @@ function playMusic() {
     timerID = setTimeout(playMusic, stepTime);
 
 }
-
-const playButton = document.getElementById('play');
-
-playButton.addEventListener('click', () => {
-
-    if (audio.state === 'suspended') audio.resume()
-
-    isPlaying = !isPlaying
-
-    if (isPlaying) {
-        currentStep = 0;
-        playMusic();
-    }
-    else {
-        clearTimeout(timerID);
-    }
-})
 
 // UI C/U
 
@@ -125,4 +112,23 @@ tracks.forEach((track, trackIndex) => {
 
     }
 
+})
+
+const playButton = document.getElementById('play');
+
+playButton.addEventListener('click', () => {
+
+    if (audio.state === 'suspended') audio.resume()
+
+    if (!isPlaying) {
+        currentStep = 0;
+        playMusic();
+        isPlaying = !isPlaying
+        playButton.textContent = 'Pause';
+    }
+    else {
+        clearTimeout(timerID);
+        isPlaying = !isPlaying
+        playButton.textContent = 'Play';
+    }
 })
