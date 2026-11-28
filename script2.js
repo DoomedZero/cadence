@@ -62,8 +62,12 @@ bpmInput.addEventListener("change", (e) => {
 
 function playMusic() {
 
+    document.querySelectorAll('.step.playing').forEach(btn => {
+        btn.classList.remove('playing');
+    });
+
     document.querySelectorAll(`.step[data-step="${currentStep}"]`).forEach(btn => {
-        btn.classList.toggle('playing');
+        btn.classList.add('playing');
     });
 
     for (let trackIndex = 0; trackIndex < tracks.length; trackIndex++) {
@@ -80,7 +84,7 @@ function playMusic() {
 
 }
 
-// UI C/U
+// UI
 
 tracks.forEach((track, trackIndex) => {
 
