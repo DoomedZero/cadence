@@ -29,6 +29,10 @@ body {
     user-select: none;
 }
 
+#bpm {
+    cursor: default;
+}
+
 .control-hover:hover {
     background-color: #313638;
 }
