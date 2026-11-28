@@ -37,17 +37,20 @@ function playSample(trackIndex) {
 const bpmInput = document.getElementById('bpm-input');
 
 bpmInput.value = 120;
-let bpm = bpmInput.value;
+
+let bpm = Number(bpmInput.value) || 120;
+
 
 bpmInput.addEventListener("change", (e) => {
 
-    bpm = e.target.value
+    let val = Number(e.target.value);
 
-    console.log(bpm)
+    if (val < 40) val = 40;
 
-    if ( bpm < 40 ) bpmInput.value = 40;
+    if (val > 250) val = 250;
 
-    if ( bpm > 250 ) bpmInput.value = 250;
+    bpmInput.value = val;
+    bpm = val;
 
 })
 
@@ -73,10 +76,8 @@ tracks.forEach((track, trackIndex) => {
 
             playSample(trackIndex);
 
-            //Flip the state of 2D Array
             sequencerState[trackIndex][i] = !sequencerState[trackIndex][i];
 
-            //Apply that state in UI
             button.classList.toggle('active');
 
         })
