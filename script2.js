@@ -3,14 +3,9 @@ const sequencer = document.getElementById( 'sequencer' );
 const tracks = ["Kick", "Snare", "Hi hat"];
 const steps = 16;
 
-//2D State Array
-// [false, fasle, false,...] (trackIndex = 1)
-// [false, fasle, false,...] (trackIndex = 2)
-// [false, fasle, false,...] (trackIndex = 3)
 const sequencerState = tracks.map( () => Array( steps ).fill( false ) );
 
-// Here comes the Important part -
-// THE AUDIO ENGINE
+// CADENCE AUDIO ENGINE 
 
 const audio = new AudioContext(); // Web Audio API audio context to generate, route, and process sound in the browser
 const loadedSounds = [];
