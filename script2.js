@@ -58,6 +58,40 @@ bpmInput.addEventListener("change", (e) => {
 
 })
 
+// UI
+
+tracks.forEach((track, trackIndex) => {
+
+    const trackName = document.createElement('div');
+    trackName.textContent = track
+    trackName.classList.add('track-name');
+    sequencer.appendChild(trackName);
+
+    for (let i = 0; i < steps; i++) {
+
+        const button = document.createElement('button');
+
+        button.classList.add('step');
+
+        button.dataset.track = trackIndex;
+        button.dataset.step = i;
+
+        button.addEventListener('click', (event) => {
+
+            if (!isPlaying) playSample(trackIndex);
+
+            sequencerState[trackIndex][i] = !sequencerState[trackIndex][i];
+
+            button.classList.toggle('active');
+
+        })
+
+        sequencer.appendChild(button);
+
+    }
+
+})
+
 // Play Logic
 
 function playMusic() {
@@ -84,55 +118,39 @@ function playMusic() {
 
 }
 
-// UI
-
-tracks.forEach((track, trackIndex) => {
-
-    const trackName = document.createElement('div');
-    trackName.textContent = track
-    trackName.classList.add('track-name');
-    sequencer.appendChild(trackName);
-
-    for (let i = 0; i < steps; i++) {
-
-        const button = document.createElement('button');
-
-        button.classList.add('step');
-
-        button.dataset.track = trackIndex;
-        button.dataset.step = i;
-
-        button.addEventListener('click', (event) => {
-
-            if(!isPlaying) playSample(trackIndex);
-
-            sequencerState[trackIndex][i] = !sequencerState[trackIndex][i];
-
-            button.classList.toggle('active');
-
-        })
-
-        sequencer.appendChild(button);
-
-    }
-
-})
-
 const playButton = document.getElementById('play');
 
 playButton.addEventListener('click', () => {
 
-    if (audio.state === 'suspended') audio.resume()
+    if (audio.state === 'suspended') audio.resume();
 
-    if (!isPlaying) {
-        currentStep = 0;
-        playMusic();
-        isPlaying = !isPlaying
+    isPlaying = !isPlaying
+
+    if (isPlaying) {
         playButton.textContent = 'Pause';
+        playMusic();
     }
     else {
         clearTimeout(timerID);
-        isPlaying = !isPlaying
         playButton.textContent = 'Play';
     }
 })
+
+const resetButton = document.getElementById('reset');
+
+resetButton.addEventListener('click', () => {
+    if (audio.state === 'suspended') audio.resume();
+
+    clearTimeout(timerID);
+    currentStep = 0;
+
+    document.querySelectorAll('.step.playing').forEach(btn => {
+        btn.classList.remove('playing');
+    });
+
+    if (isPlaying) {
+        isPlaying = !isPlaying
+        playButton.textContent = 'Play';
+    }
+
+});
