@@ -1,6 +1,6 @@
 const sequencer = document.getElementById('sequencer');
 
-const tracks = ["Kick", "Snare", "Hi hat"];
+const tracks = ["Kick", "Snare", "Hi hat", "Open Hit Hat", "Clap", "Bass", "c#6", "Synth"];
 const steps = 16;
 
 const sequencerState = tracks.map(() => Array(steps).fill(false));
@@ -13,7 +13,12 @@ const loadedSounds = [];
 const soundFiles = [
     './samples/kick.wav',
     './samples/snare.wav',
-    './samples/hihat.wav'
+    './samples/hihat.wav',
+    './samples/open-hit-hat.mp3',
+    './samples/clap.mp3',
+    './samples/bass.mp3',
+    './samples/cs6.mp3',
+    './samples/synth.mp3'
 ]
 
 const bpmInput = document.getElementById('bpm-input');
