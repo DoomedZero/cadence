@@ -66,8 +66,7 @@ tracks.forEach((track, trackIndex) => {
 
         button.addEventListener("click", () => {
 
-            sequencerState[trackIndex][i] =
-                !sequencerState[trackIndex][i];
+            sequencerState[trackIndex][i] = !sequencerState[trackIndex][i];
 
             button.classList.toggle("active");
 
