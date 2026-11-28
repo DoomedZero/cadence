@@ -34,6 +34,19 @@ function playSample(trackIndex) {
 
 }
 
+const bpmButton = document.getElementById('bpm');
+const bpmInput = document.getElementById('bpm-input');
+
+let bpm = bpmInput.value;
+
+bpmButton.addEventListener('click', (event) => {
+
+    bpmInput.focus();
+    
+})
+
+// UI C/U
+
 tracks.forEach( (track , trackIndex) => {
     
     const trackName = document.createElement('div');

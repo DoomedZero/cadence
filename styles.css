@@ -32,6 +32,17 @@ body {
     background-color: #313638;
 }
 
+input {
+    font: inherit;
+    width: 60px;
+    padding: 2px;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    margin-left: 2px;
+    cursor: pointer;
+}
+
 .sequencer {
     display: grid;
     grid-template-columns: 75px repeat(16, 1fr);
@@ -64,8 +75,4 @@ button:hover {
 
 .active:hover {
     background-color: rgb(65, 158, 250);
-}
-
-.step.playing {
-    outline: 4px solid yellow;
 }

@@ -30,6 +30,16 @@
 
         <button class="control" id="play">Play</button>
         <button class="control" id="restart">Restart</button>
+        <div class="control" id="bpm">
+            BPM
+            <input 
+                type="number" 
+                value="120" 
+                min="40"
+                max="250"
+                id="bpm-input"
+                oninput= " if(this.value > 250) this.value = 250; " >
+        </div>
 
     </div>
 
