@@ -1,9 +1,9 @@
-const sequencer = document.getElementById( 'sequencer' );
+const sequencer = document.getElementById('sequencer');
 
 const tracks = ["Kick", "Snare", "Hi hat"];
 const steps = 16;
 
-const sequencerState = tracks.map( () => Array( steps ).fill( false ) );
+const sequencerState = tracks.map(() => Array(steps).fill(false));
 
 // CADENCE AUDIO ENGINE 
 
@@ -16,13 +16,13 @@ const soundFiles = [
     './samples/hihat.wav'
 ]
 
-soundFiles.forEach( async (filePath, trackIndex) => {
+soundFiles.forEach(async (filePath, trackIndex) => {
 
     const response = await fetch(filePath);
     const data = await response.arrayBuffer();
 
-    loadedSounds [trackIndex] = await audio.decodeAudioData(data);
-    
+    loadedSounds[trackIndex] = await audio.decodeAudioData(data);
+
 })
 
 function playSample(trackIndex) {
@@ -37,24 +37,37 @@ function playSample(trackIndex) {
 const bpmButton = document.getElementById('bpm');
 const bpmInput = document.getElementById('bpm-input');
 
+bpmInput.value = 120;
 let bpm = bpmInput.value;
+
+bpmInput.addEventListener("change", (e) => {
+
+    bpm = e.target.value
+
+    console.log(bpm)
+
+    if ( bpm < 40 ) bpmInput.value = 40;
+
+    if ( bpm > 250 ) bpmInput.value = 250;
+
+})
 
 bpmButton.addEventListener('click', (event) => {
 
     bpmInput.focus();
-    
+
 })
 
 // UI C/U
 
-tracks.forEach( (track , trackIndex) => {
-    
+tracks.forEach((track, trackIndex) => {
+
     const trackName = document.createElement('div');
     trackName.textContent = track
     trackName.classList.add('track-name');
     sequencer.appendChild(trackName);
 
-    for (let i = 0; i < steps ; i ++) {
+    for (let i = 0; i < steps; i++) {
 
         const button = document.createElement('button');
 
