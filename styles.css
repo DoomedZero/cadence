@@ -26,9 +26,10 @@ body {
     min-width: 75px;
     text-align: center;
     cursor: pointer;
+    user-select: none;
 }
 
-.control:hover {
+.control-hover:hover {
     background-color: #313638;
 }
 

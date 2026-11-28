@@ -34,7 +34,6 @@ function playSample(trackIndex) {
 
 }
 
-const bpmButton = document.getElementById('bpm');
 const bpmInput = document.getElementById('bpm-input');
 
 bpmInput.value = 120;
@@ -49,12 +48,6 @@ bpmInput.addEventListener("change", (e) => {
     if ( bpm < 40 ) bpmInput.value = 40;
 
     if ( bpm > 250 ) bpmInput.value = 250;
-
-})
-
-bpmButton.addEventListener('click', (event) => {
-
-    bpmInput.focus();
 
 })
 
