@@ -9,6 +9,36 @@ const steps = 16;
 // [false, fasle, false,...] (trackIndex = 3)
 const sequencerState = tracks.map( () => Array( steps ).fill( false ) );
 
+// Here comes the Important part -
+// THE AUDIO ENGINE
+
+const audio = new AudioContext(); // Web Audio API audio context to generate, route, and process sound in the browser
+const loadedSounds = [];
+
+const soundFiles = [
+    './samples/kick.wav',
+    './samples/snare.wav',
+    './samples/hihat.wav'
+]
+
+soundFiles.forEach( async (filePath, trackIndex) => {
+
+    const response = await fetch(filePath);
+    const data = await response.arrayBuffer();
+
+    loadedSounds [trackIndex] = await audio.decodeAudioData(data);
+    
+})
+
+function playSample(trackIndex) {
+
+    const player = audio.createBufferSource();
+    player.buffer = loadedSounds[trackIndex];
+    player.connect(audio.destination);
+    player.start(0);
+
+}
+
 tracks.forEach( (track , trackIndex) => {
     
     const trackName = document.createElement('div');
@@ -26,6 +56,8 @@ tracks.forEach( (track , trackIndex) => {
         button.dataset.step = i;
 
         button.addEventListener('click', (event) => {
+
+            playSample(trackIndex);
 
             //Flip the state of 2D Array
             sequencerState[trackIndex][i] = !sequencerState[trackIndex][i];
