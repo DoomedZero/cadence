@@ -16,6 +16,16 @@ const soundFiles = [
     './samples/hihat.wav'
 ]
 
+const bpmInput = document.getElementById('bpm-input');
+
+bpmInput.value = 120;
+
+let bpm = Number(bpmInput.value) || 120;
+
+let isPlaying = false;
+let currentStep = 0;
+let timerID = null;
+
 soundFiles.forEach(async (filePath, trackIndex) => {
 
     const response = await fetch(filePath);
@@ -34,12 +44,6 @@ function playSample(trackIndex) {
 
 }
 
-const bpmInput = document.getElementById('bpm-input');
-
-bpmInput.value = 120;
-
-let bpm = Number(bpmInput.value) || 120;
-
 
 bpmInput.addEventListener("change", (e) => {
 
@@ -52,6 +56,41 @@ bpmInput.addEventListener("change", (e) => {
     bpmInput.value = val;
     bpm = val;
 
+})
+
+// Play Logic
+
+function playMusic() {
+
+    for (let trackIndex = 0; trackIndex < tracks.length; trackIndex++) {
+        if (sequencerState[trackIndex][currentStep]) {
+            playSample(trackIndex);
+        }
+    }
+
+    currentStep = (currentStep + 1) % steps;
+
+    const stepTime = (60 / bpm / 4) * 1000;
+
+    timerID = setTimeout(playMusic, stepTime);
+
+}
+
+const playButton = document.getElementById('play');
+
+playButton.addEventListener('click', () => {
+
+    if (audio.state === 'suspended') audio.resume()
+
+    isPlaying = !isPlaying
+
+    if (isPlaying) {
+        currentStep = 0;
+        playMusic();
+    }
+    else {
+        clearTimeout(timerID);
+    }
 })
 
 // UI C/U
@@ -74,7 +113,7 @@ tracks.forEach((track, trackIndex) => {
 
         button.addEventListener('click', (event) => {
 
-            playSample(trackIndex);
+            if(!isPlaying) playSample(trackIndex);
 
             sequencerState[trackIndex][i] = !sequencerState[trackIndex][i];
 
